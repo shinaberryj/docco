@@ -111,9 +111,9 @@ table td {
     text-align: left;
   }
     .docs .filepath {
-      margin-top: -10px;
-      margin-left: 25px;
       color: #8E8A96;
+			margin-bottom: 20px;
+			font-weight: normal;
     }
     .docs pre {
       margin: 15px 0 15px;
