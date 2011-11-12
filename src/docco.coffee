@@ -50,6 +50,8 @@
 # aficionado, check out [Don Wilson](https://github.com/dontangg)'s 
 # [Nocco](http://dontangg.github.com/nocco/).
 
+docs_path = "docs"
+
 #### Main Documentation Generation Functions
 
 # Generate the documentation for a source file by reading it in, splitting it
@@ -159,7 +161,7 @@ generate_html = (source, context, sections) ->
 
 generate_readme = (context) ->
   title = "README"
-  dest = "docs/readme.html"
+  dest = docs_path + "/readme.html"
   source = "README.md"
 
   # README.md template to be use to generate the main REAME file
@@ -247,7 +249,7 @@ relative_base = (filepath, context) ->
 destination = (filepath, context) ->
   base_path = relative_base filepath, context
 
-  'docs/' + base_path + path.basename(filepath, path.extname(filepath)) + '.html'
+  docs_path + '/' + base_path + path.basename(filepath, path.extname(filepath)) + '.html'
 
 # Ensure that the destination directory exists.
 ensure_directory = (dir, callback) ->
@@ -293,11 +295,17 @@ parse_args = (callback) ->
 
   args = process.ARGV
   project_name = ""
-
+  
   # Optional Project name following -name option
   if args[0] == "-name"
     args.shift()
     project_name = args.shift()
+    
+  if (args[0] == "-o")
+    args.shift()
+    docs_path = args.shift()
+    
+  console.log "docs_path : #{docs_path}"
 
   # Sort the list of files and directories
   args = args.sort()
