@@ -13,6 +13,7 @@ root_path = (root_path == "./") ? root_path : root_path.replace(/[^\/]+/g, '..')
 <body>
   <div id="container">
     <div id="background"></div>
+    <!--
     <% if (context.sources.length > 1) { %>
       <div id="jump_to">
         Jump To &hellip;
@@ -36,6 +37,7 @@ root_path = (root_path == "./") ? root_path : root_path.replace(/[^\/]+/g, '..')
         </div>
       </div>
     <% } %>
+    -->
     <table cellpadding="0" cellspacing="0">
       <thead>
         <tr>
@@ -43,7 +45,7 @@ root_path = (root_path == "./") ? root_path : root_path.replace(/[^\/]+/g, '..')
             <h1>
               <%= title %>
             </h1>
-            <div class="filepath"><%= relative_base(file_path, context) %></div>
+            <div class="filepath"><%= relative_base(file_path, context) %></div>                        
           </th>
           <th class="code">
           </th>
@@ -66,9 +68,11 @@ root_path = (root_path == "./") ? root_path : root_path.replace(/[^\/]+/g, '..')
         <% } %>
       </tbody>
     </table>
+    <!--
     <% if(context.project_name) { %>
     <div id="projectname"><%= context.project_name %></div>
     <% } %>
+    -->
   </div>
 </body>
 </html>

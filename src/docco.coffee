@@ -157,6 +157,33 @@ generate_html = (source, context, sections) ->
         throw err if err
 
         write_func()
+        
+generate_index = (source, context) ->
+  title = context.project_name
+  dest = docs_path + "/index.html"
+  
+  index_template  = template fs.readFileSync(__dirname + '/../resources/index.jst').toString()
+  
+  html  = index_template {
+    title: title, file_path: source, context: context, path: path, relative_base: relative_base
+  }
+
+  # Generate the file's base dir as required
+  target_dir = path.dirname(dest)
+  write_func = ->
+    console.log "docco: File list -> #{dest}"
+    fs.writeFile dest, html, (err) -> throw err if err
+
+  fs.stat target_dir, (err, stats) ->
+    throw err if err and err.code != 'ENOENT'
+
+    return write_func() unless err
+
+    if err
+      exec "mkdir -p #{target_dir}", (err) ->
+        throw err if err
+
+        write_func()
 
 
 generate_readme = (context) ->
@@ -301,12 +328,11 @@ parse_args = (callback) ->
     args.shift()
     project_name = args.shift()
     
+  # Optional output path (without trailing slash)
   if (args[0] == "-o")
     args.shift()
     docs_path = args.shift()
     
-  console.log "docs_path : #{docs_path}"
-
   # Sort the list of files and directories
   args = args.sort()
 
@@ -341,10 +367,13 @@ parse_args (sources, project_name) ->
   # that we require down the line.
   context = sources: sources, project_name: project_name
 
-  ensure_directory 'docs', ->
-    fs.writeFile 'docs/docco.css', docco_styles
+  ensure_directory docs_path, ->
+    fs.writeFile docs_path + '/docco.css', docco_styles    
     files = sources[0..sources.length]
     next_file = -> generate_documentation files.shift(), context, next_file if files.length
     next_file()
+    indexDir = docs_path.substr(0, docs_path.lastIndexOf("/"))
+    console.log("indexDir: "+ indexDir);
+    if (context.sources.length > 1)
+      generate_index(indexDir, context)
     generate_readme(context)
-

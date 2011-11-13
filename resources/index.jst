@@ -1,0 +1,64 @@
+<%
+var root_path = relative_base(file_path, context);
+root_path = (root_path == "./") ? root_path : root_path.replace(/[^\/]+/g, '..');
+%>
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title><%= title %></title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="<%= root_path %>docco.css" />
+</head>
+<body>
+  <div id="container">    
+    <table cellpadding="0" cellspacing="0">
+      <thead>
+        <tr>
+          <th class="docs index">
+            <div class="column">
+            <% if(context.project_name) { %>
+            <h1><%= context.project_name %></h1>
+            <% } %>
+            <div class="filepath"></div>
+            </div>
+                     
+            <% if (context.sources.length > 1) { %>
+              <% 
+                var prev_base_path = ""; 
+                var num_items_per_column = context.sources.length/4;
+                var num_items = -1;
+              %>
+              <% for (var i=0, l=context.sources.length; i<l; i++) { %>
+                <%
+                var source    = context.sources[i];
+                var base_path = relative_base(source, context);
+                var base_path_padded = base_path.replace(new RegExp("/", 'g'), " / ");
+                var this_class = (source == file_path) ? "selected" : "";                                
+                %>
+                <% if (base_path != prev_base_path) { %>
+                  <% if (num_items > num_items_per_column || num_items == -1) { %>
+                    <% if (num_items != -1) { %>
+                    </div><!-- end of col-->
+                    <% } %>
+                    <div class="column">
+                    <% num_items = 0; %>    
+                  <% } %>
+                  <h3><%= base_path %></h3>
+                  <% prev_base_path = base_path; %>
+                <% } %>                  
+                <a class="source <%= this_class %>" href="<%= root_path + base_path + path.basename(source, path.extname(source)) %>.html">
+                  <span class="file_name"><%= path.basename(source) %></span>
+                </a>
+                <% num_items++; %>
+              <% } %>
+              </div><!-- end of col-->
+            <% } %>
+          </th>          
+        </tr>
+      </thead>     
+    </table>
+  </div>
+</body>
+</html>
+
