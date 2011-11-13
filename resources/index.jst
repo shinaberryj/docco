@@ -20,7 +20,7 @@ root_path = (root_path == "./") ? root_path : root_path.replace(/[^\/]+/g, '..')
             <% if(context.project_name) { %>
             <h1><%= context.project_name %></h1>
             <% } %>
-            <div class="filepath"></div>
+            <div class="footer">Generated using <a href="https://github.com/vorg/docco">docco fork</a>.</div>
             </div>
                      
             <% if (context.sources.length > 1) { %>

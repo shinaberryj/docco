@@ -159,6 +159,17 @@ td.docs, th.docs {
 	width: 250px;
 	float: left;
 }
+.docs.index .footer {
+	position: absolute;
+	font-size: 90%;
+	margin-top: 50px;
+	color: #AAA;
+	font-weight: normal;
+}
+.docs.index .footer a {
+	color: #AAA;
+	font-weight: normal;
+}
 .pilwrap {
 	position: relative;
 }
