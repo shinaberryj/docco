@@ -376,4 +376,6 @@ parse_args (sources, project_name) ->
     console.log("indexDir: "+ indexDir);
     if (context.sources.length > 1)
       generate_index(indexDir, context)
-    generate_readme(context)
+    
+    # disabled for now
+    # generate_readme(context)
