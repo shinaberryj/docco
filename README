@@ -11,6 +11,12 @@ This is modified version of docco with:
 - removed jump list
 - option to specify output directory using "-o path/to/docs"
 
+### TODO:
+[ ] regenrate only modified files since last build
+[ ] link to index in class files
+
+### Original README
+
 Docco is a quick-and-dirty, hundred-line-long, literate-programming-style
 documentation generator. For more information, see:
 
