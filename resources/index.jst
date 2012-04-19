@@ -26,7 +26,7 @@ root_path = (root_path == "./") ? root_path : root_path.replace(/[^\/]+/g, '..')
             <% if (context.sources.length > 1) { %>
               <% 
                 var prev_base_path = ""; 
-                var num_items_per_column = context.sources.length/4;
+                var num_items_per_column = context.sources.length/3;
                 var num_items = -1;
               %>
               <% for (var i=0, l=context.sources.length; i<l; i++) { %>
